@@ -6,6 +6,8 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PatrName { get; set; }
+
+        public string Email;
         public string Phone { get; set; }
         public string Country { get; set; }
         public string City { get; set; }

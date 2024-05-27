@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Hospital_BLL.DTO;
 using Hospital_BLL.Interfaces;
+using Hospital_DAL.Entities;
 using Hospital_DAL.Interfaces;
 
 namespace Hospital_BLL.Services
@@ -30,10 +31,7 @@ namespace Hospital_BLL.Services
 
         public async Task AddPersonAsync(PersonDTO personDto)
         {
-            var person = new Hospital_DAL.Entities.Person
-            {
-                // Map from DTO to Entity
-            };
+            var person  = _mapper.Map<Person>(personDto);
             await _personRepository.AddAsync(person);
         }
 

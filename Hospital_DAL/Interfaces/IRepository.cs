@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hospital_DAL.Interfaces
@@ -15,5 +13,4 @@ namespace Hospital_DAL.Interfaces
         Task DeleteAsync(int id);
         IQueryable<T> Query();
     }
-
 }

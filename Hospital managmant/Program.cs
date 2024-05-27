@@ -5,6 +5,7 @@ using Hospital_DAL.EF;
 using Hospital_DAL.Interfaces;
 using Hospital_DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ builder.Services.AddScoped<IPatientVisitRepository, PatientVisitRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Register BLL services
 // Register BLL services
@@ -44,10 +46,27 @@ builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IOtherStaffService, OtherStaffService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IPatientVisitService, PatientVisitService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 
 var app = builder.Build();
+
+// Seed the default admin user
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var userService = services.GetRequiredService<IUserService>();
+        Task.Run(async () => await userService.SeedDefaultAdminAsync()).Wait();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the default admin user.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -71,6 +90,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 
 
