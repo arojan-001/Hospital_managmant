@@ -3,6 +3,8 @@ using Hospital_BLL.DTO;
 using Hospital_BLL.Interfaces;
 using Hospital_DAL.Interfaces;
 using Hospital_DAL.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hospital_BLL.Services
 {
@@ -48,6 +50,26 @@ namespace Hospital_BLL.Services
         public async Task DeleteDepartmentAsync(int id)
         {
             await _departmentRepository.DeleteAsync(id);
+        }
+        public async Task SeedDefaultDepartmentsAsync()
+        {
+            var defaultDepartments = new List<DepartmentDTO>
+            {
+                new DepartmentDTO { DeptName = "Cardiology", Description = "Department of heart-related treatments" },
+                new DepartmentDTO { DeptName = "Neurology", Description = "Department of brain and nerve-related treatments" },
+                new DepartmentDTO { DeptName = "Pediatrics", Description = "Department for child care" },
+                new DepartmentDTO { DeptName = "Orthopedics", Description = "Department for bone and muscle-related treatments" }
+            };
+
+            foreach (var departmentDto in defaultDepartments)
+            {
+                var existingDepartment = await _departmentRepository.SearchByDepartmentNameAsync(departmentDto.DeptName);
+                if (existingDepartment == null)
+                {
+                    var department = _mapper.Map<Department>(departmentDto);
+                    await _departmentRepository.AddAsync(department);
+                }
+            }
         }
     }
 }

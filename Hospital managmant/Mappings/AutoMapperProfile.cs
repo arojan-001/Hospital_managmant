@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Hospital_BLL.DTO;
 using Hospital_management.Models;
-using Hospital_managmant.Models.Hospital_management.Models;
-using Hospital_managmant.Models;
 
 namespace Hospital_management.Mappings
 {

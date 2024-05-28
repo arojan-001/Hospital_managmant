@@ -2,7 +2,7 @@
 using Hospital_BLL.DTO;
 using Hospital_BLL.Interfaces;
 using Hospital_management.Models;
-using Hospital_managmant.Models.Hospital_management.Models;
+using Hospital_managmant.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_management.Controllers

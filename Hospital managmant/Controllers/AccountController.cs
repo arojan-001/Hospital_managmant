@@ -76,10 +76,18 @@ namespace Hospital_management.Controllers
 
             var loginDto = _mapper.Map<LoginDTO>(viewModel);
             var result = await _userService.LoginAsync(loginDto);
-            if (result == "Login successful")
+            if (result == 0)
             {
+
+                return RedirectToAction("Index", "Admin");
+            }
+
+            if (result == 1 || result == 2)
+            {
+
                 return RedirectToAction("Index", "Home");
             }
+
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(viewModel);
         }

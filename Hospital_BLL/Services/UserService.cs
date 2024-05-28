@@ -83,7 +83,7 @@ namespace Hospital_BLL.Services
             }
         }
 
-        public async Task<string> LoginAsync(LoginDTO loginDto)
+        public async Task<int> LoginAsync(LoginDTO loginDto)
         {
             var user = await _userRepository.GetByEmailAsync(loginDto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password)) // Verify hashed password
@@ -92,7 +92,7 @@ namespace Hospital_BLL.Services
             }
 
             // Generate and return a JWT token or session ID
-            return "Login successful";
+            return user.Type;
         }
         public async Task SeedDefaultAdminAsync()
         {

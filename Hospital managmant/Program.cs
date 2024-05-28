@@ -52,7 +52,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
-// Seed the default admin user
+/// Seed the default admin user and default departments
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -60,11 +60,14 @@ using (var scope = app.Services.CreateScope())
     {
         var userService = services.GetRequiredService<IUserService>();
         Task.Run(async () => await userService.SeedDefaultAdminAsync()).Wait();
+
+        var departmentService = services.GetRequiredService<IDepartmentService>();
+        Task.Run(async () => await departmentService.SeedDefaultDepartmentsAsync()).Wait();
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the default admin user.");
+        logger.LogError(ex, "An error occurred seeding the default data.");
     }
 }
 

@@ -1,6 +1,5 @@
 ﻿namespace Hospital_management.Models
 {
-    using Hospital_managmant.Models.Hospital_management.Models;
     using System;
     using System.ComponentModel.DataAnnotations;
 

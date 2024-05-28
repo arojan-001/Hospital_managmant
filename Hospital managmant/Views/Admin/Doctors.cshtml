@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Hospital_management.Models.DoctorViewModel>
+
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<h1>Doctors</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="CreateDoctor">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DoctorID)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DeptNo)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PersonID)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().ChargesPerVisit)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PatientsTreated)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Qualification)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Specialization)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.DoctorID)</td>
+                <td>@Html.DisplayFor(modelItem => item.DeptNo)</td>
+                <td>@Html.DisplayFor(modelItem => item.PersonID)</td>
+                <td>@Html.DisplayFor(modelItem => item.ChargesPerVisit)</td>
+                <td>@Html.DisplayFor(modelItem => item.PatientsTreated)</td>
+                <td>@Html.DisplayFor(modelItem => item.Qualification)</td>
+                <td>@Html.DisplayFor(modelItem => item.Specialization)</td>
+                <td>
+                    <a class="btn btn-info" asp-action="EditDoctor" asp-route-id="@item.DoctorID">Edit</a> |
+                    <a class="btn btn-danger" asp-action="DeleteDoctor" asp-route-id="@item.DoctorID">Delete</a> |
+                    <a class="btn btn-primary" asp-action="DoctorDetails" asp-route-id="@item.DoctorID">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

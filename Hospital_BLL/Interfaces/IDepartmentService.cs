@@ -9,5 +9,7 @@ namespace Hospital_BLL.Interfaces
         Task AddDepartmentAsync(DepartmentDTO department);
         Task UpdateDepartmentAsync(DepartmentDTO department);
         Task DeleteDepartmentAsync(int id);
+
+        Task SeedDefaultDepartmentsAsync();
     }
 }

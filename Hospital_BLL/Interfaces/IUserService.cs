@@ -7,7 +7,7 @@ namespace Hospital_BLL.Interfaces
     {
         Task RegisterAsync(RegistrationDTO registrationDto);
         Task RegisterWithDetailsAsync(LoginDTO loginDto, PersonDTO personDto, string role);
-        Task<string> LoginAsync(LoginDTO loginDto);
+        Task<int> LoginAsync(LoginDTO loginDto);
 
         Task SeedDefaultAdminAsync();
     }
